@@ -4,8 +4,6 @@ import com.intellij.openapi.util.NlsContexts;
 import com.intellij.util.ui.ColumnInfo;
 import com.mohave.domain_objects.ConfigSettings;
 
-import javax.swing.*;
-
 public abstract class BooleanColumnInfo extends ColumnInfo<ConfigSettings.ConfigEntry, Boolean> {
 
     public BooleanColumnInfo(@NlsContexts.ColumnName String name) {

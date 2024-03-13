@@ -18,7 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.mohave.domain_objects.ConfigSettings.*;
-import static com.mohave.ui.ClasspathModifierSettingsEditor.*;
+import static com.mohave.ui.ClasspathModifierSettingsEditor.SERIALIZATION_ID;
+import static com.mohave.ui.ClasspathModifierSettingsEditor.SETTING_KEY;
 
 public class ClasspathModifierJavaRunConfigurationExtension extends RunConfigurationExtension {
 

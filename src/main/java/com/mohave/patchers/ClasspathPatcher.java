@@ -27,38 +27,42 @@ public class ClasspathPatcher extends JavaProgramPatcher {
         if (configuration instanceof ApplicationConfiguration) {
 
             Optional.ofNullable(((ApplicationConfiguration) configuration).getUserData(SETTING_KEY)).ifPresent(settings -> {
-                for (ConfigSettings.ConfigEntry entry : settings.getEntries()) {
-                    if (entry.getPath() == null) continue;
 
-                    // Might be a good idea to remove the path from the classpath before adding it again?
+                if (settings.isEnabled()) {
+                    for (ConfigSettings.ConfigEntry entry : settings.getEntries()) {
+                        if (entry.getPath() == null) continue;
 
-                    File modificationPath = new File(entry.getPath());
+                        // Might be a good idea to remove the path from the classpath before adding it again?
 
-                    if (entry.isAsFolder()) {
-                        addToClasspath(parameters, entry, entry.getPath());
-                    }
+                        File modificationPath = new File(entry.getPath());
 
-                    if (entry.isJars()) {
-                        try {
-                            if (entry.isJarsDeep()) {
-                                Files.walk(modificationPath.toPath()).forEach(file -> {
-                                    if (FileUtil.extensionEquals(file.toFile().getName(), "jar")) {
-                                        addToClasspath(parameters, entry,file.toFile().getAbsolutePath());
-                                    }
-                                });
-                            } else {
-                                Files.list(modificationPath.toPath()).forEach(file -> {
-                                    if (FileUtil.extensionEquals(file.toFile().getName(), "jar")) {
-                                        addToClasspath(parameters, entry,file.toFile().getAbsolutePath());
-                                    }
-                                });
+                        if (entry.isAsFolder()) {
+                            addToClasspath(parameters, entry, entry.getPath());
+                        }
+
+                        if (entry.isJars()) {
+                            try {
+                                if (entry.isJarsDeep()) {
+                                    Files.walk(modificationPath.toPath()).forEach(file -> {
+                                        if (FileUtil.extensionEquals(file.toFile().getName(), "jar")) {
+                                            addToClasspath(parameters, entry,file.toFile().getAbsolutePath());
+                                        }
+                                    });
+                                } else {
+                                    Files.list(modificationPath.toPath()).forEach(file -> {
+                                        if (FileUtil.extensionEquals(file.toFile().getName(), "jar")) {
+                                            addToClasspath(parameters, entry,file.toFile().getAbsolutePath());
+                                        }
+                                    });
+                                }
+
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
                             }
-
-
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
                         }
                     }
+
                 }
             });
         }
@@ -73,35 +77,4 @@ public class ClasspathPatcher extends JavaProgramPatcher {
             logger.debug("Adding " + element + " to the beginning of the classpath");
         }
     }
-
-
-            /*for (ModuleBasedConfigurationOptions.ClasspathModification modification : ((ApplicationConfiguration) configuration).getClasspathModifications()) {
-
-                if (modification.getPath() == null) continue;
-
-                parameters.getClassPath().remove(modification.getPath());
-
-                File modificationPath = new File(modification.getPath());
-                if (modificationPath.isDirectory()) {
-                    AtomicBoolean hasJars = new AtomicBoolean(false);
-                    try {
-                        Files.list(modificationPath.toPath()).forEach(file -> {
-                            if (FileUtil.extensionEquals(file.toFile().getName(), "jar")) {
-                                parameters.getClassPath().addTail(file.toFile().getAbsolutePath());
-                                hasJars.set(true);
-                            }
-                        });
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    if (!hasJars.get()) {
-                        parameters.getClassPath().addTail(modification.getPath());
-                    }
-                } else {
-                    parameters.getClassPath().addTail(modification.getPath());
-                }
-            }*/
-
-    //}
 }

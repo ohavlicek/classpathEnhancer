@@ -15,6 +15,7 @@ import com.mohave.domain_objects.ConfigSettings;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -95,7 +96,7 @@ public class ClasspathModifierSettingsPanel extends JPanel {
         table.setShowHorizontalLines(false);
         table.setShowVerticalLines(false);
         table.setIntercellSpacing(new Dimension(0, 0));
-        table.setPreferredSize(new Dimension(-1, 100));
+        table.setPreferredSize(new Dimension(-1, 200));
         table.setEnabled(true);
 
         table.getColumnModel().getColumn(0).setPreferredWidth(200);
@@ -107,7 +108,7 @@ public class ClasspathModifierSettingsPanel extends JPanel {
 
 
         // enable checkbox
-        checkBox = new JCheckBox("Enable classpath modification plugin");
+        checkBox = new JCheckBox("Enable classpath enhancer plugin for this run configuration");
         checkBox.addActionListener(e -> table.setEnabled(checkBox.isSelected()));
 
         // action bar
@@ -129,6 +130,8 @@ public class ClasspathModifierSettingsPanel extends JPanel {
         setLayout(new BorderLayout());
         add(checkboxPanel, BorderLayout.NORTH);
         add(jPanel, BorderLayout.CENTER);
+
+        setBorder(new TitledBorder("Classpath Enhancer"));
     }
 
     private void doAddAction(final TableView<ConfigSettings.ConfigEntry> table, final ListTableModel<ConfigSettings.ConfigEntry> model) {
