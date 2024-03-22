@@ -21,7 +21,14 @@
     <depends>com.intellij.modules.lang</depends>
     <!--suppress PluginXmlValidity -->
     <depends optional="true">com.intellij.modules.java</depends>
-
+<change-notes><![CDATA[
+<h2>Until this version, the resources located in the project structure were not added correctly!</h2>
+<h2>Bug Fixes</h2>
+<ul>
+  <li>When adding a resource located in the project structure itself, its now added correctly with full path</li>
+</ul>
+]]>
+</change-notes>
 
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
