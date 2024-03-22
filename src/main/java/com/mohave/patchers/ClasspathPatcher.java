@@ -48,7 +48,7 @@ public class ClasspathPatcher extends JavaProgramPatcher {
                         }
 
                         if (entry.isAsFolder()) {
-                            addToClasspath(parameters, entry, modificationPath.getAbsolutePath();
+                            addToClasspath(parameters, entry, entry.getPath());
                         }
 
                         if (entry.isJars()) {
