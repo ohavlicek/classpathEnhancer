@@ -36,8 +36,19 @@ public class ClasspathPatcher extends JavaProgramPatcher {
 
                         File modificationPath = new File(entry.getPath());
 
+                        if (!modificationPath.exists()) {
+                            logger.debug("Path " + modificationPath + " does not exist. Trying to resolve it with the project base path");
+                            modificationPath = new File(((ApplicationConfiguration) configuration).getProject().getBasePath(), entry.getPath());
+                            if (modificationPath.exists()) {
+                                logger.trace("Resolved path " + modificationPath);
+                            } else {
+                                logger.error("Path " + modificationPath + " does not exist. Skipping");
+                                continue;
+                            }
+                        }
+
                         if (entry.isAsFolder()) {
-                            addToClasspath(parameters, entry, entry.getPath());
+                            addToClasspath(parameters, entry, modificationPath.getAbsolutePath();
                         }
 
                         if (entry.isJars()) {
