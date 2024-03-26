@@ -22,10 +22,11 @@
     <!--suppress PluginXmlValidity -->
     <depends optional="true">com.intellij.modules.java</depends>
 <change-notes><![CDATA[
-<h2>Until this version, the resources located in the project structure were not added correctly!</h2>
+<h2>Until version 2.0, the resources located in the project structure were not added correctly!</h2>
 <h2>Bug Fixes</h2>
 <ul>
-  <li>When adding a resource located in the project structure itself, its now added correctly with full path</li>
+  <li>When adding a resource located in the project structure itself, its now added correctly with full path.</li>
+  <li>When adding a resource that already exists on CP, it's removed from the original location.</li>
 </ul>
 ]]>
 </change-notes>

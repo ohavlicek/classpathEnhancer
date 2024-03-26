@@ -80,6 +80,7 @@ public class ClasspathPatcher extends JavaProgramPatcher {
     }
 
     private static void addToClasspath(JavaParameters parameters, ConfigSettings.ConfigEntry entry, String element) {
+        parameters.getClassPath().remove(element);
         if (entry.isEndOfClasspath()) {
             parameters.getClassPath().addTail(element);
             logger.debug("Adding " + element + " to the end of the classpath");
