@@ -6,7 +6,7 @@ plugins {
 
 
 group = "com.ohave"
-version = "2.0"
+version = "2.1"
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("221")
-        untilBuild.set("241.*")
+        untilBuild.set("243.*")
     }
 
     signPlugin {
